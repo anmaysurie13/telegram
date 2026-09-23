@@ -4,5 +4,8 @@
       "maxDuration": 60,
       "includeFiles": "voice/**"
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/api/telegram" }
+  ]
 }
