@@ -24,7 +24,7 @@ note ──▶ 1. Gemini scores it 0-10 ──(below 6)──▶ "Not drafted �
 | `lib/pipeline.js` | Score → news → draft, and the NEWS SOURCE block. The pass mark (`MIN_SCORE = 6`) is here. |
 | `lib/gemini.js` | Gemini calls: `scoreNote`, `extractNewsKeywords`, `draftPost`. |
 | `lib/news.js` | `fetchNews`: Google News search through its public RSS feed. |
-| `lib/db.js` | Supabase: `saveNote`, `saveDraft`, `findPendingDraft`, `updateDraftStatus`, voice skill. |
+| `lib/db.js` | Supabase (direct Postgres via `DATABASE_URL`): `saveNote`, `saveDraft`, `findPendingDraft`, `updateDraftStatus`, voice skill. |
 | `supabase/schema.sql` | Creates the `notes`, `drafts` and `voice_skill` tables. Run once in Supabase. |
 | `scripts/seed-voice.js` | Copies the voice guide file into the `voice_skill` table. |
 | `lib/telegram.js` | Sends messages back to Telegram and splits long drafts over 4096 characters. |
@@ -69,7 +69,7 @@ In **Project → Settings → Environment Variables**, add:
 - `GEMINI_API_KEY`
 - `GEMINI_MODEL` (optional, defaults to `gemini-3.6-flash`)
 - `ALLOWED_CHAT_IDS` (leave empty for now)
-- `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (see step 8)
+- `DATABASE_URL` (see step 8)
 
 Redeploy after adding the variables so they take effect.
 
@@ -85,7 +85,7 @@ Have Meera send `/start` to the bot. It replies with her chat ID. Add that ID to
 ### 8. Set up Supabase
 1. Create a project at https://supabase.com.
 2. In **SQL Editor → New query**, paste the contents of `supabase/schema.sql` and click **Run**.
-3. From **Project Settings → API**, copy the Project URL and the `service_role` key into `.env` and into Vercel as `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`, then redeploy.
+3. Click **Connect** in Supabase and copy the **Transaction pooler** connection string (port 6543). Put your database password in it, with special characters URL-encoded (`#` becomes `%23`). Add it to `.env` and to Vercel as `DATABASE_URL`, then redeploy.
 4. Load the voice guide into the `voice_skill` table:
    ```bash
    npm run seed-voice

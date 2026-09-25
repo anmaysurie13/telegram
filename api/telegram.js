@@ -10,7 +10,7 @@ Notes are scored first. Reminders and half-thoughts are not drafted.
 
 Reply APPROVE or REJECT to a draft to record your decision.`;
 
-const NOT_SAVED = "Not saved: the database isn't set up yet (SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY).";
+const NOT_SAVED = "Not saved: the database isn't set up yet (DATABASE_URL).";
 
 function allowedChats() {
   return (process.env.ALLOWED_CHAT_IDS || "")

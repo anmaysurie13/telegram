@@ -12,5 +12,8 @@
     "webhook-info": "node --env-file=.env scripts/webhook-info.js",
     "test-draft": "node --env-file=.env scripts/test-draft.js",
     "seed-voice": "node --env-file=.env scripts/seed-voice.js"
+  },
+  "dependencies": {
+    "pg": "^8.23.0"
   }
 }
